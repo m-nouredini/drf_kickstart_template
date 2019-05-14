@@ -1,5 +1,6 @@
 from django.db import IntegrityError
 from rest_framework.decorators import api_view
+from rest_framework_simplejwt.exceptions import TokenError
 
 from service.shortcuts.exceptions import Conflict
 from user.decorators import authorize
@@ -42,7 +43,11 @@ def block_user(request):
         user = User.objects.get(username=request.data.get('username'))
         user.is_blocked = True
         user.save()
-        RefreshToken(user.token).blacklist()
+        try:
+            RefreshToken(user.token).blacklist()
+        except TokenError:
+            pass  # token is already expired
+
         return ok()
     except User.DoesNotExist:
         raise NotFound(detail='User not found')
