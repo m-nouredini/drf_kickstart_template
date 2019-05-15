@@ -1,8 +1,9 @@
 from rest_framework import serializers
 from rest_framework.exceptions import PermissionDenied
-from user.models import User
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+from .models import User
 
 
 class ServiceTokenObtainPairSerializer(TokenObtainPairSerializer):

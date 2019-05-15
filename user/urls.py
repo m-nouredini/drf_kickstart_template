@@ -1,7 +1,8 @@
 from django.urls import path
-from user import views
 
 from rest_framework_simplejwt.views import token_refresh
+
+from user import views
 
 urlpatterns = [
     path('greet', views.greet, name='greet'),

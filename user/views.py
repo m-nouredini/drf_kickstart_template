@@ -1,15 +1,18 @@
 from django.db import IntegrityError
-from rest_framework.decorators import api_view
-from rest_framework_simplejwt.exceptions import TokenError
 
-from service.shortcuts.exceptions import Conflict
-from user.decorators import authorize
-from service.shortcuts.responses import ok, created
-from user.models import User
-from user.serializers import UserSerializer, ServiceTokenObtainPairSerializer
+from rest_framework.decorators import api_view
 from rest_framework.exceptions import NotFound
+
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from service.shortcuts.exceptions import Conflict
+from service.shortcuts.responses import ok, created
+
+from .models import User
+from .serializers import UserSerializer, ServiceTokenObtainPairSerializer
+from .decorators import authorize
 
 
 class ServiceTokenObtainPairView(TokenObtainPairView):
